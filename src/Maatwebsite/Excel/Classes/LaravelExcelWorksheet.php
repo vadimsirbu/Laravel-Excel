@@ -780,7 +780,7 @@ class LaravelExcelWorksheet extends PHPExcel_Worksheet {
      */
     protected function _setSetter($setter)
     {
-        if (starts_with($setter, 'set'))
+        if ($this->startsWith($setter, 'set'))
         {
             $key = lcfirst(str_replace('set', '', $setter));
         }
