@@ -682,7 +682,7 @@ class LaravelExcelWriter {
     public function __call($method, $params)
     {
         // If the dynamic call starts with "set"
-        if (starts_with($method, 'set') && $this->excel->isChangeableProperty($method))
+        if ($this->startsWith($method, 'set') && $this->excel->isChangeableProperty($method))
         {
             $this->_setAttribute($method, $params);
 
@@ -708,6 +708,11 @@ class LaravelExcelWriter {
     public function getValidExtensions()
     {
         return $this->validExtensions;
+    }
+
+    public function startsWith($haystack, $needle)
+    {
+        return $needle !== '' && substr($haystack, 0, strlen($needle)) === (string) $needle;
     }
 
 }

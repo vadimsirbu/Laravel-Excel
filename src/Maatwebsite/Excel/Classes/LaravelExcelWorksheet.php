@@ -1233,7 +1233,7 @@ class LaravelExcelWorksheet extends PHPExcel_Worksheet {
     public function __call($method, $params)
     {
         // If the dynamic call starts with "with", add the var to the data array
-        if (starts_with($method, 'with'))
+        if ($this->startsWith($method, 'with'))
         {
             $key = lcfirst(str_replace('with', '', $method));
             $this->_addVars($key, reset($params));
@@ -1242,7 +1242,7 @@ class LaravelExcelWorksheet extends PHPExcel_Worksheet {
         }
 
         // If it's a setter
-        elseif (starts_with($method, 'set'))
+        elseif ($this->startsWith($method, 'set'))
         {
             // set the attribute
             $this->_setAttributes($method, $params);
@@ -1283,5 +1283,10 @@ class LaravelExcelWorksheet extends PHPExcel_Worksheet {
     public function getAllowedStyles()
     {
         return $this->allowedStyles;
+    }
+
+    public function startsWith($haystack, $needle)
+    {
+        return $needle !== '' && substr($haystack, 0, strlen($needle)) === (string) $needle;
     }
 }
